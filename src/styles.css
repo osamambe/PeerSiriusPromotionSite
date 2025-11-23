@@ -71,6 +71,44 @@ body {
   border-radius: 2px;
 }
 
+/* =========================================================
+   ハンバーガーメニュー - ×アニメーション
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. クリック時（状態保持）：.hamburgerに.is-openがあるとき
+   --------------------------------------------------------- */
+
+/* 中央のバーを非表示 */
+.hamburger.is-open .bar:nth-child(2) {
+  opacity: 0;
+}
+/* 上のバーを回転・移動 */
+.hamburger.is-open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+/* 下のバーを回転・移動 */
+.hamburger.is-open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---------------------------------------------------------
+   2. ホバー時（一時的な変形）：カーソルを合わせたとき
+   --------------------------------------------------------- */
+
+/* ホバー時に中央のバーを非表示 */
+.hamburger:hover .bar:nth-child(2) {
+  opacity: 0;
+}
+/* ホバー時に上のバーを回転・移動 */
+.hamburger:hover .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+/* ホバー時に下のバーを回転・移動 */
+.hamburger:hover .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ナビゲーションメニュー（ハンバーガーの中身）のスタイル */
 .menu {
   position: fixed;
