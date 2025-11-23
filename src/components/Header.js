@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-// import "./Header.css"; // 👈 この行を削除しました。空のCSSを参照するのをやめます。
 
 export default function Header() {
-  // メニューが開いているかどうかの状態を管理
-  const [isOpen, setIsOpen] = useState(false); // メニューの開閉を切り替える関数
+  // State: メニューの開閉状態（アイコンの見た目と連動）を管理
+  const [isOpen, setIsOpen] = useState(false);
 
+  // クリックイベントハンドラ
   const toggleMenu = () => {
+    // 現在の状態の真逆（trueならfalse、falseならtrue）に切り替える
     setIsOpen(!isOpen);
-  }; // サイトのメニュー項目
+  };
 
+  // サイトのメニュー項目
   const menuItems = [
     "NEWS",
     "PROFILES",
@@ -21,22 +23,36 @@ export default function Header() {
 
   return (
     <header className="header">
-      {/* サイトタイトル/ロゴ */} <div className="logo">スマホ表示用_NEWS</div>{" "}
-      {/* ハンバーガーアイコン（クリックで状態を切り替える） */}{" "}
-      <button className="hamburger" onClick={toggleMenu}>
-        <div className="bar"></div> <div className="bar"></div>
-        <div className="bar"></div>{" "}
-      </button>{" "}
-      {/* メニューリスト（isOpenの状態に応じて表示/非表示を切り替える） */}{" "}
+      {/* サイトタイトル/ロゴ */}
+      <div className="logo">
+        {/* ロゴ画像をクリックするとトップページ（ルートパス /）に遷移する */}
+        <a href="/">
+          <img
+            src="/images/logo.png"
+            alt="PeerSirius ロゴ"
+            className="header-logo"
+          />
+        </a>
+      </div>
+
+      {/* ハンバーガーアイコン（is-openクラスを直接付与） */}
+      <button
+        className={`hamburger ${isOpen ? "is-open" : ""}`}
+        onClick={toggleMenu} // Stateの切り替えを実行
+      >
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+      </button>
+
+      {/* メニューリスト：isOpenの状態に応じて表示/非表示を切り替える */}
       <nav className={`menu ${isOpen ? "is-open" : ""}`}>
-        {" "}
         <ul>
-          {" "}
           {menuItems.map((item) => (
             <li key={item}>{item}</li>
-          ))}{" "}
-        </ul>{" "}
-      </nav>{" "}
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }
