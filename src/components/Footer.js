@@ -4,7 +4,7 @@ import { FaYoutube, FaTwitter, FaTiktok } from "react-icons/fa"; // アイコン
 export default function Footer() {
   // リンク先は適宜変更してください
   const snsLinks = [
-    { name: "X", icon: FaTwitter, url: "https://twitter.com/" },
+    { name: "X", icon: FaTwitter, url: "https://X.com/" },
     { name: "TikTok", icon: FaTiktok, url: "https://www.tiktok.com/" },
     { name: "YouTube", icon: FaYoutube, url: "https://www.youtube.com/" },
   ];
