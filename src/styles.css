@@ -32,9 +32,11 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 14px;
+/* src/styles.css の .logo .header-logo セクション */
+.logo .header-logo {
+  height: 50px; /* 👈 高さを20pxから16pxに縮小 */
+  width: auto;
+  display: block;
 }
 
 /* ハンバーガーボタン（タップ領域） */
