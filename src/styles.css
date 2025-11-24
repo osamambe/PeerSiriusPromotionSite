@@ -1,175 +1,389 @@
 /* =========================================================
-   グローバルリセットと基本的な設定
+   Google Fonts のインポート (Press Start 2P, Orbitron)
    ========================================================= */
-
-* {
-  /* すべての要素でpaddingやborderがwidthを増やさないようにする */
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  /* サイト全体の横スクロールを禁止し、見切れを解消 */
-  overflow-x: hidden;
-}
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap");
 
 /* =========================================================
-     ヘッダーとハンバーガーメニューのスタイル
-     ========================================================= */
-.header {
+      Cosmic Companion Theme - FINAL RICH VERSION
+      ========================================================= */
+:root {
+  --bg-space: #050510; /* 漆黒の宇宙 */
+  --bg-alt: #1a1a2a; /* 濃いグレー（セクションの区切り用） */
+  --text-star: #ffffff; /* 星のような白 */
+  --accent-cyan: #00ffff; /* ビームシアン */
+  --accent-pink: #ff00ff; /* プラネットピンク */
+  --main-energy-yellow: #ffd700; /* メインのエネルギーイエロー */
+  --accent-poke-red: #ff6347; /* ポケモンレッド */
+  --accent-cyber-blue: #6495ed; /* サイバーブルー */
+  --font-display: "Press Start 2P", cursive; /* タイトルや見出し用 */
+  --font-body: "Orbitron", sans-serif; /* 本文やメニュー用 */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-space) !important;
+  color: var(--text-star);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 宇宙背景 (ドットパターンとアニメーション) */
+body::before {
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  z-index: -2; /* コンテンツのさらに背後に配置 */
+  background: radial-gradient(
+    circle,
+    rgba(20, 20, 40, 0.8) 0%,
+    rgba(10, 10, 20, 1) 100%
+  );
+  background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 0
+    ),
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: cosmic-drift 120s linear infinite;
 }
 
-/* src/styles.css の .logo .header-logo セクション */
-.logo .header-logo {
-  height: 50px; /* 👈 高さを20pxから16pxに縮小 */
-  width: auto;
+@keyframes cosmic-drift {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 200px 200px;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 8px var(--accent-cyan);
+  opacity: 1;
+}
+
+/* スクロールバーも宇宙仕様に */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-cyan);
+  border-radius: 0;
+}
+
+/* =========================================================
+      Utilities
+      ========================================================= */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section {
+  padding: 150px 0;
+  min-height: auto;
+  width: 100%;
+  position: relative;
+  background-color: transparent;
+  text-align: center;
+}
+
+/* セクションタイトル: 大胆なスタイル */
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(45px, 7vw, 90px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 70px;
+  text-transform: uppercase;
+  color: var(--main-energy-yellow);
+  text-shadow: 0 0 15px var(--main-energy-yellow),
+    0 0 30px rgba(255, 215, 0, 0.5);
+  position: relative;
+  display: inline-block;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.17, 0.84, 0.44, 1);
+}
+
+.section-title.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-description {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-light);
+  max-width: 800px;
+  margin: -40px auto 80px;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s cubic-bezier(0.17, 0.84, 0.44, 1) 0.2s;
+}
+
+.section-description.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 15px 45px;
+  margin-top: 30px;
+  background: none;
+  color: var(--text-star);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  transition: all 0.3s ease-out;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* ネオンシャドウ */
+  border: 3px solid var(--accent-cyan); /* 枠線を追加 */
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--accent-cyan);
+  color: var(--bg-space);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* =========================================================
+      Mobile Menu Style (Full Screen Cyber Overlay)
+      ========================================================= */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 5, 16, 0.98);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid var(--accent-cyber-blue);
+  box-shadow: inset 0 0 50px rgba(100, 149, 237, 0.3);
+
+  transform: translateX(101%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile-menu.is-open {
+  transform: translateX(0);
+}
+
+.mobile-menu ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.mobile-menu li {
+  margin: 25px 0;
+  text-align: center;
+  transform: skewX(-15deg);
+  overflow: hidden;
+}
+
+.mobile-menu a {
+  font-family: var(--font-body);
+  font-size: clamp(35px, 8vw, 60px);
+  font-weight: 700;
+  color: var(--text-star);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.mobile-menu a:hover {
+  color: var(--accent-poke-red);
+  text-shadow: 0 0 10px var(--accent-poke-red);
+  background: var(--accent-cyber-blue);
+  transform: skewX(-15deg) scale(1.05);
+  box-shadow: 0 0 20px rgba(100, 149, 237, 0.8);
+  z-index: 2;
+}
+
+/* グリッチアニメーション */
+@keyframes glitch-text {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translate(-5px, 0);
+  }
+  50% {
+    transform: translate(5px, 0);
+  }
+  75% {
+    transform: translate(-5px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* =========================================================
+      Header Specific Styles
+      ========================================================= */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 80px;
+  background-color: rgba(14, 15, 26, 0.8);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--accent-cyber-blue);
+  padding: 0 60px; /* 左右のパディングで調整 */
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
   display: block;
 }
 
-/* ハンバーガーボタン（タップ領域） */
+/* src/styles.css の .header-image-logo セクション */
+.header-image-logo {
+  height: 30px; /* 新しいロゴの高さに合わせる */
+  width: auto;
+  display: block;
+  /* ドット絵風ロゴのスタイル */
+  filter: drop-shadow(0 0 5px var(--accent-cyan));
+  transition: transform 0.3s ease;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.header-image-logo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px var(--accent-pink));
+}
+
+/* ハンバーガーボタン */
 .hamburger {
   background: none;
   border: none;
   cursor: pointer;
   padding: 10px;
-  width: 40px;
-  height: 40px;
-
+  width: 55px;
+  height: 55px;
   display: flex;
   flex-direction: column;
-
-  /* 【修正点1】縦方向（垂直）に中央揃えにする */
   justify-content: center;
-
-  /* 【修正点2】バー間の間隔を均等に4pxで設定 */
-  gap: 4px;
-
-  /* 横方向（水平）に中央揃えにする */
+  gap: 10px;
   align-items: center;
+  position: relative;
+  z-index: 1002;
 }
 
-/* 線のスタイル（優先度を上げるため、親要素と共に指定） */
+/* 線のスタイル */
 .hamburger .bar {
   display: block;
-  width: 100%;
-  height: 3px;
-  background-color: black;
-  transition: all 0.3s ease;
+  width: 40px;
+  height: 5px;
+  background-color: var(--main-energy-yellow);
+  transition: all 0.3s ease-in-out;
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+}
 
-  /* 角を丸くする設定 */
-  border-radius: 2px;
+/* ハンバーガーホバー時のアニメーション */
+.hamburger:hover .bar {
+  transform: scaleX(1.1);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 1);
 }
 
 /* =========================================================
-   ハンバーガーメニュー - ×アニメーション
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   1. クリック時（状態保持）：.hamburgerに.is-openがあるとき
-   --------------------------------------------------------- */
-
-/* 中央のバーを非表示 */
-.hamburger.is-open .bar:nth-child(2) {
-  opacity: 0;
-}
-/* 上のバーを回転・移動 */
-.hamburger.is-open .bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-/* 下のバーを回転・移動 */
-.hamburger.is-open .bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* ---------------------------------------------------------
-   2. ホバー時（一時的な変形）：カーソルを合わせたとき
-   --------------------------------------------------------- */
-
-/* ホバー時に中央のバーを非表示 */
-.hamburger:hover .bar:nth-child(2) {
-  opacity: 0;
-}
-/* ホバー時に上のバーを回転・移動 */
-.hamburger:hover .bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-/* ホバー時に下のバーを回転・移動 */
-.hamburger:hover .bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* ナビゲーションメニュー（ハンバーガーの中身）のスタイル */
-.menu {
-  position: fixed;
-  top: 50px;
-  right: 0;
-
-  width: 80%;
-  max-width: 300px;
-  height: 100vh;
-  background-color: #333;
-  color: white;
-
-  /* 画面幅の80%分、右に移動させて非表示にする */
-  transform: translateX(80vw);
-  transition: transform 0.3s ease-in-out;
-  z-index: 999;
-  padding-top: 20px;
-}
-
-/* メニューが開いたとき */
-.menu.is-open {
-  transform: translateX(0);
-}
-
-.menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu li {
-  padding: 15px 20px;
-  border-bottom: 1px solid #444;
-  font-weight: 500;
-}
-
-/* =========================================================
-     フッターのスタイル
-     ========================================================= */
+      Footer Style
+      ========================================================= */
 .footer {
   text-align: center;
-  padding: 30px 20px;
-  border-top: 1px solid #eee;
+  padding: 80px 20px;
+  background: var(--bg-dark-space);
+  border-top: 2px solid var(--accent-cyber-blue);
+  color: var(--text-light);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.sns-links {
+  display: inline-block;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .sns-links a {
-  margin: 0 10px;
-  color: black;
-  text-decoration: none;
+  margin: 0 20px;
+  color: var(--text-light);
+  font-size: 30px;
+  border: 2px solid var(--accent-cyber-blue);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  line-height: 56px;
   display: inline-block;
-  transition: opacity 0.2s;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0);
 }
 
 .sns-links a:hover {
-  opacity: 0.7;
+  background: var(--accent-poke-red);
+  color: var(--text-light);
+  border-color: var(--accent-poke-red);
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
 }
 
 .copyright {
-  margin-top: 20px;
-  font-size: 10px;
-  color: #888;
+  font-size: 13px;
+  color: var(--text-light);
+  opacity: 0.7;
+  letter-spacing: 0.5px;
 }
