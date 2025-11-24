@@ -1,0 +1,273 @@
+/* 全体の設定: ピクセルフォント適用 */
+:root {
+  --pixel-bg: #2c3e50;
+  --pixel-gold: #f1c40f;
+  --pixel-orange: #e67e22;
+  --pixel-brown: #a0522d;
+  --pixel-green: #27ae60;
+  --pixel-shadow: #1a1a1a;
+}
+
+.App {
+  text-align: center;
+  min-height: 100vh;
+  font-family: "Press Start 2P", cursive; /* ピクセルフォント */
+  color: #fff;
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--pixel-bg);
+  image-rendering: pixelated; /* 画像をドット絵風にレンダリング */
+}
+
+/* 背景アニメーション: 夕暮れの空と遺跡 */
+.pixel-sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #8e44ad, #c0392b, #d35400, #f39c12);
+  z-index: 0;
+}
+
+.pixel-ruins-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 50%;
+  background-image: linear-gradient(transparent 50%, var(--pixel-shadow) 50%),
+    linear-gradient(90deg, transparent 50%, var(--pixel-shadow) 50%);
+  background-size: 20px 20px; /* 簡易的なドットパターン */
+  opacity: 0.3;
+  animation: scrollRuins 20s linear infinite;
+  z-index: 1;
+  /* 遺跡のシルエットをCSSで擬似的に表現 */
+  box-shadow: 100px -50px 0 var(--pixel-shadow),
+    300px -80px 0 var(--pixel-shadow), 500px -30px 0 var(--pixel-shadow),
+    700px -100px 0 var(--pixel-shadow);
+}
+
+@keyframes scrollRuins {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* メインコンテナ */
+.adventure-container {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ヘッダー */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--pixel-gold);
+  text-shadow: 2px 2px 0 #000;
+  margin-bottom: 40px;
+}
+
+/* ロゴとタイトル */
+.treasure-pile {
+  margin-bottom: 60px;
+  /* 宝の山をCSSのbox-shadowで擬似表現 */
+  box-shadow: 0 20px 0 var(--pixel-gold), -20px 40px 0 var(--pixel-orange),
+    20px 40px 0 var(--pixel-gold), 0 60px 0 var(--pixel-brown);
+  padding-bottom: 60px;
+  position: relative;
+}
+
+/* ロゴをピクセル化してバウンドさせる */
+.App-logo.pixelated {
+  height: 120px;
+  image-rendering: pixelated;
+  animation: bounce 1s infinite alternate ease-in-out;
+  filter: drop-shadow(4px 4px 0 #000);
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-15px);
+  }
+}
+
+.game-title {
+  font-size: 2rem;
+  line-height: 1.5;
+  text-shadow: 4px 4px 0 #000;
+  margin: 20px 0;
+}
+
+.title-word.color-1 {
+  color: var(--pixel-gold);
+}
+.title-word.color-2 {
+  color: var(--pixel-orange);
+}
+
+.game-subtitle {
+  font-size: 0.9rem;
+  color: var(--pixel-gold);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  padding: 10px;
+  border: 4px solid #000;
+}
+
+/* 宝箱セクション */
+.treasure-chests {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.chest-item {
+  width: 250px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 宝箱の蓋と中身 */
+.chest-lid-container {
+  height: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.chest-lid {
+  width: 100%;
+  height: 100%;
+  background-color: var(--pixel-brown);
+  border: 4px solid #000;
+  border-bottom: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-out;
+  transform-origin: top;
+  /* ドット絵風の装飾 */
+  box-shadow: inset 0 0 0 4px var(--pixel-orange);
+}
+
+.treasure-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%) scale(0); /* 初期状態は隠す */
+  font-size: 3rem;
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.icon-key {
+  color: var(--pixel-gold);
+}
+.icon-crown {
+  color: var(--pixel-gold);
+  filter: drop-shadow(2px 2px 0 red);
+}
+.icon-gem {
+  color: #3498db;
+}
+
+/* 宝箱の下部分 */
+.chest-base {
+  background-color: var(--pixel-brown);
+  border: 4px solid #000;
+  padding: 15px;
+  text-align: left;
+  box-shadow: inset 0 0 0 4px var(--pixel-orange), 8px 8px 0 var(--pixel-shadow);
+}
+
+.chest-base h3 {
+  font-size: 0.9rem;
+  color: var(--pixel-gold);
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.chest-base p {
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+/* ホバー時のアニメーション：蓋が開いてアイテムが飛び出す */
+.chest-item:hover .chest-lid {
+  transform: rotateX(110deg);
+}
+
+.chest-item:hover .treasure-icon {
+  transform: translate(-50%, -80%) scale(1.2);
+}
+
+/* メインの宝箱を少し強調 */
+.main-chest {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+/* CTAエリア */
+.cta-area {
+  margin-bottom: 40px;
+}
+
+.cta-text {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: var(--pixel-gold);
+  text-shadow: 2px 2px 0 #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.coin-icon {
+  animation: spin 1s steps(8) infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* レトロゲーム風ボタン */
+.nes-btn.is-primary {
+  background-color: var(--pixel-green);
+  border: 4px solid #000;
+  color: #fff;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-family: inherit;
+  cursor: pointer;
+  /* ドット絵風の立体感 */
+  box-shadow: inset -4px -4px 0 var(--pixel-shadow),
+    4px 4px 0 var(--pixel-shadow);
+  transition: all 0.1s;
+}
+
+.nes-btn.is-primary:active {
+  transform: translate(4px, 4px);
+  box-shadow: inset 4px 4px 0 var(--pixel-shadow);
+}
+
+/* フッター */
+.game-footer {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
